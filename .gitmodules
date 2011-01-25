@@ -1,0 +1,3 @@
+[submodule "last.fm-api"]
+	path = last.fm-api
+	url = git://github.com/fxb/javascript-last.fm-api.git
