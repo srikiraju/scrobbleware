@@ -1,0 +1,18 @@
+{
+    "name": "scrobbleware",
+    "version": "1.0",
+    "description": "Last.fm scrobbler",
+    "permissions": [
+        "tabs",
+        "http://ws.audioscrobbler.com/",
+        "http://post.audioscrobbler.com/",
+        "http://post2.audioscrobbler.com/"
+    ],
+    "background_page": "background.html",
+    "content_scripts": [
+    {
+        "matches": ["http://www.live365.com/*"],
+        "js": ["jquery-1.4.4.min.js","live365.js"]
+    }
+    ]
+}
