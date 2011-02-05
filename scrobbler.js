@@ -28,9 +28,11 @@ else
 
 function scrobble()
 {
+    var now_time = parseInt(new Date().getTime() / 1000.0);
     if( song_details.title && song_details.title != "" &&
         song_details.artist && song_details.artist != "" &&
-        song_details.album && song_details.album != "" && session != null )
+        song_details.album && song_details.album != "" && session != null
+        && now_time - song_details.start_time > 30 )
     {
         lastfm.track.scrobble( { track:song_details.title,
             artist:song_details.artist, album:song_details.album,
