@@ -1,7 +1,7 @@
 {
     "name": "scrobbleware",
     "version": "1.0",
-    "description": "Last.fm scrobbler",
+    "description": "Last.fm scrobbler for live365",
     "permissions": [
         "tabs",
         "http://ws.audioscrobbler.com/",
@@ -14,5 +14,6 @@
         "matches": ["http://www.live365.com/*"],
         "js": ["jquery-1.4.4.min.js","live365.js"]
     }
-    ]
+    ],
+    "options_page":"options_page.html"
 }

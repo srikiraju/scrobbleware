@@ -7,10 +7,24 @@ var lastfm = new LastFM({
 });
 
 var session;
-lastfm.auth.getMobileSession( { username:"user", password:"pw" }, { success: function( data ) {
-    console.log( data.session );
-    session = data.session;
-} } );
+console.log( localStorage.username );
+console.log( localStorage.password );
+if( localStorage.username != null && localStorage.password != null )
+{
+    lastfm.auth.getMobileSession( { username:localStorage.username, password:localStorage.password }, { success: function( data ) {
+            console.log( data.session );
+            session = data.session;
+            console.log( "Successful Auth" );
+            listenForSongs();
+        }, error: function( data ) {
+            console.log( "Couldn't auth. Check user/password" );
+        }
+     } );
+}
+else
+{
+    console.log( "Need to enter credentials in options page" );
+}
 
 function scrobble()
 {
@@ -31,28 +45,29 @@ function playingstatus()
             album:song_details.album }, session );
 }
 
-chrome.extension.onRequest.addListener(
-    function( request, sender, sendResponse ) {
-        scrobble();//Scrobble previous song
-        //Verify new song
-        //Update infos and set last.fm playing status
-        console.log( request );
-        song_details.title = request.title;
-        song_details.album = request.album;
-        song_details.artist = request.artist;
-        song_details.start_time = parseInt(new Date().getTime() / 1000.0);
-        playingstatus();
-    }
-);
+function listenForSongs() {
+    chrome.extension.onRequest.addListener(
+        function( request, sender, sendResponse ) {
+            scrobble();//Scrobble previous song
+            //Verify new song
+            //Update infos and set last.fm playing status
+            console.log( request );
+            song_details.title = request.title;
+            song_details.album = request.album;
+            song_details.artist = request.artist;
+            song_details.start_time = parseInt(new Date().getTime() / 1000.0);
+            playingstatus();
+        }
+    );
 
-//Handling multiple tabs
-chrome.tabs.onUpdated.addListener( function( tabID, changeInfo, tab) {
-    }
-);
+    //Handling multiple tabs
+    chrome.tabs.onUpdated.addListener( function( tabID, changeInfo, tab) {
+        }
+    );
 
-//Handling window close
-chrome.tabs.onRemoved.addListener( function( tabId ) {
-    }
-);
-
+    //Handling window close
+    chrome.tabs.onRemoved.addListener( function( tabId ) {
+        }
+    );
+}
 console.log( "Done loading extension" );

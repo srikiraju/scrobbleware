@@ -1,0 +1,28 @@
+<html>
+<head>
+    <title>scrobbleware</title>
+    <link rel="stylesheet" type="text/css" href="options.css" />
+    <script type="text/javascript" src="options.js"></script>
+</head>
+<body onload="load()">
+    <div class="wrapper">
+        <h1>Scrobbleware</h1>
+        <p id="status"></p>   
+        <form>
+            <p>
+                <label for="username">Username:</label> 
+                <input type="text" id="username">
+            </p>
+            <p>
+                <label for="password">Password:</label> 
+                <input type="password" id="password">
+            </p>
+            <p>
+                <input type="submit" onclick="save()" value="OK" />
+                <input type="button" onclick="clear()" value="Clear" />
+            </p>
+        </form>
+    </div>
+</body>
+</html>
+
