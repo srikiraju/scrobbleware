@@ -23,8 +23,7 @@ function playing_song()
 
 function stopped_song()
 {
-    chrome.extension.sendRequest( { type:"stopped_song", artist:song_artist,
-        title:song_title, album:song_album, sstatus:song_status } );
+    chrome.extension.sendRequest( { type:"stopped_song" } );
 }
 
 function update(){
