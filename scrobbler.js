@@ -30,7 +30,7 @@ function scrobble()
 {
     if( song_details.title && song_details.title != "" &&
         song_details.artist && song_details.artist != "" &&
-        song_details.album && song_details.album != "" )
+        song_details.album && song_details.album != "" && session != null )
     {
         lastfm.track.scrobble( { track:song_details.title,
             artist:song_details.artist, album:song_details.album,
@@ -40,7 +40,8 @@ function scrobble()
 
 function playingstatus()
 {
-    lastfm.track.updateNowPlaying( { track:song_details.title,
+    if( session != null )
+        lastfm.track.updateNowPlaying( { track:song_details.title,
             artist:song_details.artist,
             album:song_details.album }, session );
 }
@@ -48,25 +49,28 @@ function playingstatus()
 function listenForSongs() {
     chrome.extension.onRequest.addListener(
         function( request, sender, sendResponse ) {
-            scrobble();//Scrobble previous song
-            //Verify new song
-            //Update infos and set last.fm playing status
-            console.log( request );
-            song_details.title = request.title;
-            song_details.album = request.album;
-            song_details.artist = request.artist;
-            song_details.start_time = parseInt(new Date().getTime() / 1000.0);
-            playingstatus();
+            switch( request.type )
+            {
+                case "playing_song":
+                    scrobble();//Scrobble previous song if any
+                    //Verify new song
+                    //Update infos and set last.fm playing status
+                    console.log( request );
+                    song_details.title = request.title;
+                    song_details.album = request.album;
+                    song_details.artist = request.artist;
+                    song_details.start_time = parseInt(new Date().getTime() / 1000.0);
+                    playingstatus();
+                    break;
+                case "stopped_song":
+                    song_details = {};
+                    break;
+            }
         }
     );
 
-    //Handling multiple tabs
-    chrome.tabs.onUpdated.addListener( function( tabID, changeInfo, tab) {
-        }
-    );
-
-    //Handling window close
-    chrome.tabs.onRemoved.addListener( function( tabId ) {
+    chrome.tabs.onRemoved.addListener( function( ) {
+            scrobble();
         }
     );
 }
