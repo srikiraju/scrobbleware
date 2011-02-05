@@ -83,7 +83,7 @@ function listenForSongs() {
     );
 
     chrome.tabs.onRemoved.addListener( function( ) {
-            scrobble();
+            //scrobble();
         }
     );
 }
