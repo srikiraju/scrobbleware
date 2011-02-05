@@ -73,9 +73,4 @@ function playStatusChanged( )
 $("#playerControls").bind( "DOMSubtreeModified", playStatusChanged );
 playStatusChanged( );
 
-//OnChange( play status )
-//if( playing ), check w/ last.fm gettrackinfo + send playing to last.fm
-//sendreq to background.html
-//OnChange( title )
-//if( playing && title change ) send scrobble to last.fm through background.html
 

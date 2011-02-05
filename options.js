@@ -2,14 +2,12 @@ function save() {
     localStorage.username = document.getElementById("username").value;
     localStorage.password = document.getElementById("password").value;
     chrome.extension.getBackgroundPage().window.location.reload();
-    update('User set to ' + localStorage.username );
     return false;
 }
 
 function clear() {
     localStorage.clear();
     chrome.extension.getBackgroundPage().window.location.reload();
-    update("User deleted.");
 }
 
 
@@ -20,7 +18,14 @@ function update( msg ) {
 
 function load() {
     if (localStorage.username != null) {
-        update('User set to ' + localStorage.username );
+        update("User set to " + localStorage.username + ". "
+             + ( localStorage.auth_success == 1 ? "Auth success" : "Auth failed" ) );
     }
 }
 
+chrome.extension.onRequest.addListener(
+    function(request, sender, sendResponse) {
+        load();
+        sendResponse({});
+    }
+);

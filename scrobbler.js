@@ -7,23 +7,33 @@ var lastfm = new LastFM({
 });
 
 var session;
-console.log( localStorage.username );
-console.log( localStorage.password );
-if( localStorage.username != null && localStorage.password != null )
+
+function auth() 
 {
-    lastfm.auth.getMobileSession( { username:localStorage.username, password:localStorage.password }, { success: function( data ) {
-            console.log( data.session );
-            session = data.session;
-            console.log( "Successful Auth" );
-            listenForSongs();
-        }, error: function( data ) {
-            console.log( "Couldn't auth. Check user/password" );
-        }
-     } );
-}
-else
-{
-    console.log( "Need to enter credentials in options page" );
+    console.log( localStorage.username );
+    console.log( localStorage.password );
+    if( localStorage.username != null && localStorage.password != null )
+    {
+        lastfm.auth.getMobileSession( { username:localStorage.username, password:localStorage.password }, { success: function( data ) {
+                console.log( data.session );
+                session = data.session;
+                localStorage.auth_success = 1;
+                chrome.tabs.getSelected(null, function(tab) {
+                    chrome.tabs.sendRequest(tab.id, {});
+                });
+                listenForSongs();
+            }, error: function( data ) {
+                localStorage.auth_success = 2;
+                chrome.tabs.getSelected(null, function(tab) {
+                    chrome.tabs.sendRequest(tab.id, {});
+                });
+            }
+         } );
+    }
+    else
+    {
+        console.log( "Need to enter credentials in options page" );
+    }
 }
 
 function scrobble()
@@ -68,6 +78,7 @@ function listenForSongs() {
                     song_details = {};
                     break;
             }
+            sendResponse({});
         }
     );
 
@@ -77,3 +88,4 @@ function listenForSongs() {
     );
 }
 console.log( "Done loading extension" );
+auth();//Auth on startup
