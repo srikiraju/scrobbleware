@@ -1,3 +1,6 @@
+/* Copyright (c) 2011 Srikanth Raju, http://srikanthraju.in/scrobbleware
+ * Released under MIT license. See LICENSE file for more information */
+
 function save() {    
     localStorage.username = document.getElementById("username").value;
     localStorage.password = document.getElementById("password").value;

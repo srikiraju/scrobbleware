@@ -1,3 +1,6 @@
+/* Copyright (c) 2011 Srikanth Raju, http://srikanthraju.in/scrobbleware
+ * Released under MIT license. See LICENSE file for more information */
+
 var song_details = {};
 var cache = LastFMCache();
 var lastfm = new LastFM({

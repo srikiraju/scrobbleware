@@ -1,4 +1,5 @@
-//Let's look for what's playing and tell our extension that
+/* Copyright (c) 2011 Srikanth Raju, http://srikanthraju.in/scrobbleware
+ * Released under MIT license. See LICENSE file for more information */
 
 var song_title; var title_changed = false;
 var song_album; var album_changed = false;
@@ -11,8 +12,8 @@ function playing_song()
     if( title_changed && album_changed && artist_changed )
     {
         //Scrobble old one and set new song playing status in last.fm
-        console.log( "Scrobbling "+ song_title + "|" + song_album + "|" +
-                song_artist + "|" + song_status );
+        console.log( "Detected "+ song_title + "|" + song_album + "|" +
+                song_artist );
         chrome.extension.sendRequest( { type: "playing_song", artist:song_artist,
             title:song_title, album:song_album, sstatus:song_status } );
         title_changed = false;
