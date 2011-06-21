@@ -49,7 +49,9 @@ function scrobble()
     {
         lastfm.track.scrobble( { track:song_details.title,
             artist:song_details.artist, album:song_details.album,
-            timestamp:song_details.start_time }, session );
+            timestamp:song_details.start_time }, session,
+            { success: function( data ){ playingstatus(); } }
+        );
     }
 }
 
@@ -75,7 +77,6 @@ function listenForSongs() {
                     song_details.album = request.album;
                     song_details.artist = request.artist;
                     song_details.start_time = parseInt(new Date().getTime() / 1000.0);
-                    playingstatus();
                     break;
                 case "stopped_song":
                     song_details = {};

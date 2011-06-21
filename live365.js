@@ -28,17 +28,17 @@ function stopped_song()
 }
 
 function update(){
-    var title = $("#artistInfo  span.title").text();
+    var title = $("#artistInfo span.title").text();
     if( title != null && title != "" && title != song_title ) {
         song_title =  title;
         title_changed = true;
     }
-    var artist = $("#artistInfo  span.artist").text();
+    var artist = $("#artistInfo span.artist").text();
     if( artist != null && artist != "" && artist != song_artist ) {
         song_artist =  artist;
         artist_changed = true;
     }
-    var album = $("#artistInfo  span.album").text();
+    var album = $("#artistInfo span.album").text();
     if( album != null && album != "" && album != song_album ) {
         song_album =  album;
         album_changed = true;
@@ -53,7 +53,7 @@ function playStatusChanged( )
     {
         song_status = sstatus;
         console.log( "Song status changed to:" + song_status );
-        if( song_status == "Stop" )
+        if( song_status == "Stop station" )
         {
             //Stuff is playing
             update();
@@ -74,4 +74,4 @@ function playStatusChanged( )
 $("#playerControls").bind( "DOMSubtreeModified", playStatusChanged );
 playStatusChanged( );
 
-
+ station
