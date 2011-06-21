@@ -1,2 +1,27 @@
 /* Copyright (c) 2011 Srikanth Raju, http://srikanthraju.in/scrobbleware
  * Released under MIT license. See LICENSE file for more information */
+
+body{
+    margin: 0px;
+    padding: 0px;
+    text-align:center;
+    font-family: Georgia, serif;
+}
+
+#header{
+    display:inline;
+}
+#header h1{
+}
+
+.wrapper{
+    width:700px;
+    height:100%;
+    padding-top:10px;
+}
+
+#status{
+    background: #faffbd;
+    border: 1px solid black;
+    width: 500px;
+}

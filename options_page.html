@@ -7,24 +7,28 @@
     <script type="text/javascript" src="options.js"></script>
 </head>
 <body onload="load()">
+    <center>
     <div class="wrapper">
-        <h1>Scrobbleware</h1>
+	<div id="header">
+	    <img src="scrobbleware.png" />
+	</div>
         <p id="status"></p>   
         <form>
             <p>
-                <label for="username">Username:</label> 
+                <label for="username">Username</label> 
                 <input type="text" id="username">
             </p>
             <p>
-                <label for="password">Password:</label> 
+                <label for="password">Password</label> 
                 <input type="password" id="password">
             </p>
             <p>
-                <input type="submit" onclick="save()" value="OK" />
-                <input type="button" onclick="clear()" value="Clear" />
+                <input type="button" id="submit" onClick="save_func()" value="OK" />
+                <input type="button" id="clear" onClick="clear_func()" value="Clear" />
             </p>
         </form>
     </div>
+    <center>
 </body>
 </html>
 
